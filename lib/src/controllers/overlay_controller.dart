@@ -40,8 +40,9 @@ class OverlaysController {
       _findAndDismiss((element) => element.overlay.name == name,
           result: result);
 
-  Future<T?> dismissLast<T>({T? result}) =>
-      _dismiss<T>(_requests.last, result: result);
+  Future<T?> dismissLast<T>({T? result}) => _requests.isNotEmpty
+      ? _dismiss<T>(_requests.last, result: result)
+      : Future.value(null);
 
   Future<void> dismissAll<T>({T? result, bool atSameTime = false}) async {
     for (var item in _requests.reversed.toList()) {
